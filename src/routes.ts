@@ -1,6 +1,6 @@
 import { Express, Request, Response } from "express"
 import {createUser, fetchAllUsers} from "./controllers/user.controller"
-
+import { createMeeting, fetchAllMeetings } from "./controllers/meeting.controller"
 const routes = (app: Express) => {
 
     //Check Api status
@@ -11,6 +11,12 @@ const routes = (app: Express) => {
 
     //Get all users
     app.get("/users/all", fetchAllUsers)
+
+    //Create a new meeting
+    app.post("/meetings/new", createMeeting)
+
+    //Get all meetings
+    app.get("/meetings/all", fetchAllMeetings)
 }
 
 export default routes
