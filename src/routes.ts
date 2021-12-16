@@ -4,7 +4,10 @@ import { createMeeting, fetchAllMeetings, updateMeetingDate } from "./controller
 const routes = (app: Express) => {
 
     //Check Api status
-    app.get("/apiStatus", (req: Request, res: Response) => res.sendStatus(200))
+    app.get("/", (req: Request, res: Response) => res.status(200).json({
+        "message":"API is up and running",
+        "documentation" : "https://github.com/dhruvinfo28/user-meeting-api#readme"
+    }))
 
     //Register a new user
     app.post("/users/new",createUser)
