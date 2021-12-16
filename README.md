@@ -8,6 +8,13 @@ An API for creating, viewing users and meetings
   * Request body example:  ``` {"username" : "TestUser"} ```  
   * Response example on status 201 (resource created ): ``` {"message": "User saved", "uid": "61bb0de9d2a1af7ec3742ef1"} ```
   * Does not allow users with same username ( i.e. no duplicate users )
+  * Bad Request Example: ``` 
+    {
+      "username" : "TestUser"
+    } ```
+   * Response for above request ( TestUser already exists ) : ``` {
+      "error": "Duplicate Resource"
+   }```
  
 ### /users/all
   * Returns a list of all users as json
@@ -86,3 +93,11 @@ An API for creating, viewing users and meetings
       }
     ] ```
     
+## Run project locally : 
+ * Create a fork and clone the fork to your local system: ``` git clone https://github.com/<your-username>/user-meeting-api.git ```
+ * Run : ``` yarn install ```
+ * Start a local mongo server instance : In your terminal type : ``` mongod ```
+ * Start the express server : ``` yarn start ```
+ * Check Api status on ``` http://localhost:3000/apiStatus ``` 
+ * Base URL : ``` http://localhost:3000/ ```
+ * The above guide assumes node.js, yarn and mongodb installed on your machine
