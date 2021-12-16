@@ -94,12 +94,12 @@ An API for creating, viewing users and meetings
     ] ```
     
 ### /users/:username
-    * Returns user info for username given as request parameter
-    * Method - Get
-    * Response example with status 200 : ``` {
-        "uid": "61badac09c34b399e292c912",
-        "username": "Test"
-    } ``` for /users/Test
+   * Returns user info for username given as request parameter
+   * Method - Get
+   * Response example with status 200 : ``` {
+       "uid": "61badac09c34b399e292c912",
+       "username": "Test"
+   } ``` for /users/Test
     
 ## Run project locally : 
  * Create a fork and clone the fork to your local system: ``` git clone https://github.com/<your-username>/user-meeting-api.git ```
