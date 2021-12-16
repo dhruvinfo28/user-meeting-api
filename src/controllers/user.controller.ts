@@ -40,7 +40,8 @@ export const fetchAllUsers = async (req: Request, res: Response) => {
     try{
         const dbResponse = await UserModel.find();
         res.status(200).json(dbResponse.map(user => ({
-            "uid":user._id
+            "uid":user._id,
+            "username": user.username
         })))
     }catch(error){
         res.status(500).json({
