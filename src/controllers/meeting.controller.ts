@@ -79,11 +79,11 @@ export const fetchAllMeetings = async (req: Request, res: Response) => {
                 "Date":meeting.date,
                 "user1": {
                     "uid": user1?._id,
-                    "usernmae": user1?.username
+                    "username": user1?.username
                 },
                 "user2":{
                     "uid": user2?._id,
-                    "usernmae": user2?.username
+                    "username": user2?.username
                 }
             }
         }))
@@ -92,5 +92,8 @@ export const fetchAllMeetings = async (req: Request, res: Response) => {
 
     } catch (allMeetingFindError) {
         console.error("Error in finding all meetings: ", allMeetingFindError)
+        return res.status(500).json({
+            "message":"Try again later"
+        })
     }
 }
