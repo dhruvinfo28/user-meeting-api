@@ -1,5 +1,5 @@
 import { Express, Request, Response } from "express"
-import {createUser, fetchAllUsers} from "./controllers/user.controller"
+import {createUser, fetchAllUsers, fetchUser} from "./controllers/user.controller"
 import { createMeeting, fetchAllMeetings } from "./controllers/meeting.controller"
 const routes = (app: Express) => {
 
@@ -11,6 +11,9 @@ const routes = (app: Express) => {
 
     //Get all users
     app.get("/users/all", fetchAllUsers)
+
+    //Get user info corresponding to a user name
+    app.get("/users/:username", fetchUser)
 
     //Create a new meeting
     app.post("/meetings/new", createMeeting)

@@ -37,15 +37,38 @@ export const createUser = async (req: Request, res: Response) => {
 }
 
 export const fetchAllUsers = async (req: Request, res: Response) => {
-    try{
+    try {
         const dbResponse = await UserModel.find();
         res.status(200).json(dbResponse.map(user => ({
-            "uid":user._id,
+            "uid": user._id,
             "username": user.username
         })))
-    }catch(error){
+    } catch (error) {
         res.status(500).json({
-            "message":"Internal Server Error"
+            "message": "Internal Server Error"
+        })
+    }
+}
+
+export const fetchUser = async (req: Request, res: Response) => {
+    const validationResult = UserZodObject.safeParse(req.params);
+
+    if (!validationResult.success) {
+        return res.status(400).json({
+            "error": "Bad Request",
+            "requestType": "/users/<username>"
+        })
+    }
+
+    try {
+        const user = await UserModel.findOne({username:validationResult.data.username})
+        res.status(200).json({
+            "uid":user?._id,
+            "username":user?.username
+        })
+    } catch (error) {
+        res.status(500).json({
+            "message": "Internal Server Error"
         })
     }
 }
