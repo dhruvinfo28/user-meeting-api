@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { MeetingZodObject } from "../utils/zodSchema"
+import { MeetingZodObject, UpdateMeetingDateValidator } from "../utils/zodSchema"
 import MeetingModel from "../models/meeting.model"
 import UserModel from "../models/user.model"
 
@@ -69,31 +69,61 @@ export const createMeeting = async (req: Request, res: Response) => {
 export const fetchAllMeetings = async (req: Request, res: Response) => {
     try {
         const meetings = await MeetingModel.find();
-        let meetingUserInfo = await Promise.all(meetings.map(async meeting =>{ 
+        let meetingUserInfo = await Promise.all(meetings.map(async meeting => {
 
             let user1 = await UserModel.findById(meeting.uid1).exec()
             let user2 = await UserModel.findById(meeting.uid2).exec()
 
             return {
-                "meeting_uid":meeting._id,
-                "Date":meeting.date,
+                "meeting_uid": meeting._id,
+                "Date": meeting.date,
                 "user1": {
                     "uid": user1?._id,
                     "username": user1?.username
                 },
-                "user2":{
+                "user2": {
                     "uid": user2?._id,
                     "username": user2?.username
                 }
             }
         }))
-         
+
         res.status(200).json(meetingUserInfo)
 
     } catch (allMeetingFindError) {
         console.error("Error in finding all meetings: ", allMeetingFindError)
         return res.status(500).json({
-            "message":"Try again later"
+            "message": "Try again later"
+        })
+    }
+}
+
+export const updateMeetingDate = async (req: Request, res: Response) => {
+    const validationResult = UpdateMeetingDateValidator.safeParse(req.body)
+    if (!validationResult.success) {
+        return res.status(400).json({
+            "error": "Bad Request",
+            "requestType": "{meeting_id:string, date:string} and all strings are non-empty"
+        })
+    }
+    try {
+        const dbResponse = await MeetingModel.findOneAndUpdate({ _id: validationResult.data.meeting_id }, { date: validationResult.data.date })
+
+        //No document found
+        if (dbResponse == null) {
+            return res.status(400).json({
+                "error": `No meeting with ${validationResult.data.meeting_id} found`
+            })
+        }
+
+        //Document found and updated successfully
+        res.status(200).json({
+            "message": "Date updated successfully",
+        })
+    } catch (error) {
+        console.error("Error while updating date: ", error)
+        res.status(400).json({
+            "error": "Invalid meeting id"
         })
     }
 }

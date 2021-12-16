@@ -1,6 +1,6 @@
 import { Express, Request, Response } from "express"
 import {createUser, fetchAllUsers, fetchUser} from "./controllers/user.controller"
-import { createMeeting, fetchAllMeetings } from "./controllers/meeting.controller"
+import { createMeeting, fetchAllMeetings, updateMeetingDate } from "./controllers/meeting.controller"
 const routes = (app: Express) => {
 
     //Check Api status
@@ -20,6 +20,9 @@ const routes = (app: Express) => {
 
     //Get all meetings
     app.get("/meetings/all", fetchAllMeetings)
+
+    //Update meeting date
+    app.patch("/meetings/updateDate",updateMeetingDate)
 }
 
 export default routes
