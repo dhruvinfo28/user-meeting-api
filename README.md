@@ -95,12 +95,26 @@ An API for creating, viewing users and meetings
     
 ### /users/:username
    * Returns user info for username given as request parameter
-   * Method - Get
+   * Method - GET
    * Response example with status 200 : ``` {
        "uid": "61badac09c34b399e292c912",
        "username": "Test"
    } ``` for /users/Test
     
+### /meetings/updateDate
+   * Updates the date of a meeting
+   * Method - PATCH
+   * Request body example: ``` {
+     "meeting_id":"61bb06cc589cf9c365e72aa3",
+     "date":"2022:01:10"
+   }```
+   * Response for the above request with status (200) : ``` {
+     "message": "Date updated successfully"
+   }```
+   
+### NOTE: Every end point has request data validator and throws an appropirate error for bad requests
+
+
 ## Run project locally : 
  * Create a fork and clone the fork to your local system: ``` git clone https://github.com/<your-username>/user-meeting-api.git ```
  * Run : ``` yarn install ```
