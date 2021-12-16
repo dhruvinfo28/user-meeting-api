@@ -1,7 +1,14 @@
 # user-meeting-api
-An API for creating, viewing users and meetings
+An API for creating, viewing users and meetings. <br>
+[Deployed Link](https://user-meeting-api.herokuapp.com/)
 
-## Endpoints : 
+## Index:
+  * [Endpoints](#endpoints)
+  * [Run Project Locally](#localSetup)
+  * [Dependencies](#depend)
+  * [How to use deployed link](#deployed)
+
+## <a name="endpoints"></a>Endpoints
 ### /users/new 
   * A user registration endpoint 
   * Method - POST
@@ -100,6 +107,7 @@ An API for creating, viewing users and meetings
        "uid": "61badac09c34b399e292c912",
        "username": "Test"
    } ``` for /users/Test
+   * Returns ``` {} ``` if the requested user does not exist
     
 ### /meetings/updateDate
    * Updates the date of a meeting
@@ -115,11 +123,27 @@ An API for creating, viewing users and meetings
 ### NOTE: Every end point has request data validator and throws an appropirate error for bad requests
 
 
-## Run project locally : 
+## <a name="localSetup"></a>Run project locally 
  * Create a fork and clone the fork to your local system: ``` git clone https://github.com/<your-username>/user-meeting-api.git ```
+ * Run : ``` cd user-meeting-api/ ```
  * Run : ``` yarn install ```
- * Start a local mongo server instance : In your terminal type : ``` mongod ```
- * Start the express server : ``` yarn start ```
- * Check Api status on ``` http://localhost:3000/apiStatus ``` 
+ * Open a new terminal window and start a local mongo server instance : In your terminal type : ``` mongod ```
+ * Start the express server using initial terminal: ``` yarn start ```
+ * Check Api status on ``` http://localhost:3000/ ``` 
  * Base URL : ``` http://localhost:3000/ ```
  * The above guide assumes node.js, yarn and mongodb installed on your machine
+
+## <a name="depend"></a>Dependencies 
+ #### express
+ #### zod : Zod is a TypeScript-first schema declaration and validation library.
+  * Declare a validator once and Zod will automatically infer the static TypeScript type.
+  * Developer friendly
+  * Zero dependencies
+ #### cors : Provides shorthand to enable Cross-Origin Resource Sharing
+ #### morgan : For easy logging
+ #### dotenv : To load environment variable from a .env file
+ #### ts-node : Lets us run TypeScript files directly from the shell as ts-node <file-name>
+ 
+## <a name="deployed"></a>To use deployed link for making requests: 
+ * Use the base url and append the above given endpoints
+ * Example: https://user-meeting-api.herokuapp.com/users/all
