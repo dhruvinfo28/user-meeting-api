@@ -26,6 +26,13 @@ const routes = (app: Express) => {
 
     //Update meeting date
     app.patch("/meetings/updateDate",updateMeetingDate)
+
+    //Catching 404
+    app.use((req: Request, res: Response)=>{
+        res.status(404).json({
+            "error":"End point doesnot exist"
+        })
+    })
 }
 
 export default routes
